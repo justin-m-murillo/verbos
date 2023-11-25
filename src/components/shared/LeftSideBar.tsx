@@ -2,7 +2,7 @@ import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom'
 import { useSignOutAccount } from '@/lib/react-query/queriesAndMutations'
 import { useEffect } from 'react'
 import { useUserContext } from '@/context/AuthContext'
-import { getSidebarLinks } from '@/constants'
+import { getSidebarLinks, twIconColor } from '@/constants'
 import LogoutButton from './LogoutButton'
 
 const LeftSideBar = () => {
@@ -56,7 +56,7 @@ const LeftSideBar = () => {
                 >
                   <link.Icon 
                     size={28}
-                    className={`text-indigo-500 group-hover:invert-white ${isActive && 'invert-white'}`}
+                    className={`${twIconColor} group-hover:invert-white ${isActive && 'invert-white'}`}
                   />
                   {link.label}
                 </NavLink>

@@ -1,14 +1,3 @@
-/* 
-  dark-purple: #2E2976
-  light-purple: #584fdb
-
-  light-pink: #A2459A
-
-  logo gradient:
-    1st: light-purple
-    2nd: dark-purple
-*/
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

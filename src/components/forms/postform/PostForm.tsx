@@ -18,20 +18,22 @@ import { PostValidation } from "@/lib/validation"
 import { Models } from "appwrite"
 import { useUserContext } from "@/context/AuthContext"
 import { useToast } from "@/components/ui/use-toast"
-import { useCreatePost } from '@/lib/react-query/queriesAndMutations'
+import { useCreatePost, useUpdatePost } from '@/lib/react-query/queriesAndMutations'
 import LoaderBtnDisplay from '@/components/shared/LoaderBtnDisplay'
 
 type PostFormProps = {
   post?: Models.Document;
+  action: 'Create' | 'Update'
 }
 
-
-const PostForm = ({ post }: PostFormProps) => {
-  const { mutateAsync: createPost, isPending: isLoadingCreate } = useCreatePost();
+const PostForm = ({ post, action }: PostFormProps) => {
   const { user } = useUserContext();
   const { toast } = useToast();
   const navigate = useNavigate()
- 
+
+  const { mutateAsync: createPost, isPending: isLoadingCreate } = useCreatePost();
+  const { mutateAsync: updatePost, isPending: isLoadingUpdate } = useUpdatePost();
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof PostValidation>>({
     resolver: zodResolver(PostValidation),
@@ -44,26 +46,46 @@ const PostForm = ({ post }: PostFormProps) => {
   })
  
   // 2. Define a submit handler.
-  async function onSubmit(values: z.infer<typeof PostValidation>) {
+  async function handleSubmit(values: z.infer<typeof PostValidation>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
+    //console.log('POSTFORM_ONSUBMIT: Form values submitted');
+    if (post && action === 'Update') {
+      const updatedPost = await updatePost({
+        ...values,
+        postId: post.$id,
+        imageId: post?.imageId,
+        imageUrl: post?.imageUrl,
+      })
+
+      if (!updatedPost) {
+        toast({ title: `${action} post failed. Please try again` })
+      }
+
+      return navigate(`/posts/${post.$id}`)
+    }
+
     const newPost = await createPost({
       ...values,
       userId: user.id,
-    })
+    });
+    //console.log('POSTFORM_ONSUBMIT: New post created', newPost);
 
     if (!newPost) {
       toast({
-        title: 'Please try again'
-      })
-
-      navigate('/');
+        title: `${action} post failed. Please try again`
+      });
     }
+
+    navigate('/');
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-9 w-full max-w-5xl">
+      <form 
+        onSubmit={form.handleSubmit(handleSubmit)} 
+        className="flex flex-col gap-9 w-full max-w-5xl"
+      >
         <FormField
           control={form.control}
           name="caption"
@@ -111,7 +133,9 @@ const PostForm = ({ post }: PostFormProps) => {
           name="tags"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="shad-form_label">Add Tags (separated by comma " , ")</FormLabel>
+              <FormLabel className="shad-form_label">
+                Add Tags (separated by comma " , ")
+              </FormLabel>
               <FormControl>
                 <Input 
                   type='text'
@@ -126,10 +150,15 @@ const PostForm = ({ post }: PostFormProps) => {
         />
         <div className="flex gap-4 items-center justify-end">
           <Button type="button" className="shad-button_dark_4">Cancel</Button>
-          <Button type="submit" className="shad-button_primary whitespace-nowrap">
+          <Button 
+            type="submit" 
+            className="shad-button_primary whitespace-nowrap"
+            disabled={isLoadingCreate || isLoadingUpdate}
+          >
             <LoaderBtnDisplay 
-              loaderCondition={isLoadingCreate}
-              notLoadingText={'Submit'}
+              loaderCondition={isLoadingCreate || isLoadingUpdate}
+              loadingText={action.slice(0, -1) + 'ing Post'}
+              notLoadingText={action + ' Post'}
             />
           </Button>
         </div>

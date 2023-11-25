@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
+import { IconLogout, twIconColor } from '@/constants';
 import { UseMutateFunction } from '@tanstack/react-query';
-import { MdLogout } from 'react-icons/md'
 
 type LogoutButtonProps = {
   size: number;
@@ -15,7 +15,7 @@ const LogoutButton = ({ size, children, signOut }: LogoutButtonProps) => {
       className='shad-button_ghost'
       onClick={() => signOut()}
     >
-      <MdLogout size={size} className='text-indigo-500' />
+      <IconLogout size={size} className={`${twIconColor}`} />
       { children }
     </Button>
   )

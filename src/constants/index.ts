@@ -1,29 +1,59 @@
-import { MdOutlineHome, MdOutlinePeople, MdOutlineBookmarkBorder, MdOutlineAddBox } from 'react-icons/md';
-import { TbWorld } from 'react-icons/tb';
+import { 
+  TbHome, 
+  TbWorld, 
+  TbUsersGroup,
+  TbBookmark,
+  TbBookmarkFilled,
+  TbBookmarks, 
+  TbPhoto,
+  TbPhotoEdit,
+  TbPhotoPlus,
+  TbLogout,
+  TbEdit,
+  TbHeartFilled,
+  TbHeartPlus,
+} from 'react-icons/tb';
+
+export const twIconColor = 'text-indigo-500';
+export const twImgPlaceholder = 'text-zinc-800';
+
+export const IconHome       = TbHome;
+export const IconWorld      = TbWorld;
+export const IconPeople     = TbUsersGroup;
+export const IconSave       = TbBookmark;
+export const IconSaveFilled = TbBookmarkFilled;
+export const IconAllSaved   = TbBookmarks;
+export const IconPost       = TbPhoto;
+export const IconPostCreate = TbPhotoPlus;
+export const IconPostEdit   = TbPhotoEdit;
+export const IconLogout     = TbLogout;
+export const IconEdit       = TbEdit;
+export const IconHeartPlus  = TbHeartPlus;
+export const IconHeartLiked = TbHeartFilled;
 
 export const getSidebarLinks = () => [
   {
-    Icon: MdOutlineHome,
+    Icon: IconHome,
     route: "/",
     label: "Home",
   },
   {
-    Icon: TbWorld,
+    Icon: IconWorld,
     route: "/explore",
     label: "Explore",
   },
   {
-    Icon: MdOutlinePeople,
+    Icon: IconPeople,
     route: "/all-users",
     label: "People",
   },
   {
-    Icon: MdOutlineBookmarkBorder,
+    Icon: IconAllSaved,
     route: "/saved",
     label: "Saved",
   },
   {
-    Icon: MdOutlineAddBox,
+    Icon: IconPostCreate,
     route: "/create-post",
     label: "Create Post",
   },
@@ -31,22 +61,22 @@ export const getSidebarLinks = () => [
 
 export const getBottombarLinks = () => [
   {
-    Icon: MdOutlineHome,
+    Icon: IconHome,
     route: "/",
     label: "Home",
   },
   {
-    Icon: TbWorld,
+    Icon: IconWorld,
     route: "/explore",
     label: "Explore",
   },
   {
-    Icon: MdOutlineBookmarkBorder,
+    Icon: IconAllSaved,
     route: "/saved",
     label: "Saved",
   },
   {
-    Icon: MdOutlineAddBox,
+    Icon: IconPostCreate,
     route: "/create-post",
     label: "Create",
   },

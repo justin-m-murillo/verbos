@@ -1,7 +1,7 @@
 import {useCallback, useState} from 'react'
 import { FileWithPath, useDropzone} from 'react-dropzone'
-import { MdOutlineAddPhotoAlternate } from 'react-icons/md'
 import { Button } from '../ui/button';
+import { IconPost, twImgPlaceholder } from '@/constants';
 
 type FileUploaderProps = {
   fieldChange: (FILES: File[]) => void;
@@ -10,7 +10,7 @@ type FileUploaderProps = {
 
 const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
   const [file, setFile] = useState<File[]>([]);
-  const [fileUrl, setFileUrl] = useState('');
+  const [fileUrl, setFileUrl] = useState(mediaUrl);
 
   const onDrop = useCallback((acceptedFiles: FileWithPath[]) => {
     // Do something with the files
@@ -19,7 +19,7 @@ const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
     setFileUrl(URL.createObjectURL(acceptedFiles[0]))
   }, [file]);
 
-  const {getRootProps, getInputProps, isDragActive} = useDropzone({
+  const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept: {
       'image/*': ['.png', '.jpeg', '.jpg', '.svg']
@@ -43,7 +43,7 @@ const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
           </>
         ) : (
           <div className='file_uploader-box'>
-            <MdOutlineAddPhotoAlternate size={96} className='text-zinc-800' />
+            <IconPost size={96} className={twImgPlaceholder} />
             <h3 className='base-medium text-light-2 mb-2 mt-6'>Drag photo here</h3>
             <h3 className='text-light-4 small-regular mb-6'>SVG, PNG, JPG</h3>
 

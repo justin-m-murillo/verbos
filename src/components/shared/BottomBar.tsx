@@ -1,4 +1,4 @@
-import { getBottombarLinks } from '@/constants';
+import { getBottombarLinks, twIconColor } from '@/constants';
 import { Link, useLocation } from 'react-router-dom';
 
 const BottomBar = () => {
@@ -17,7 +17,7 @@ const BottomBar = () => {
           >
             <link.Icon 
               size={16}
-              className={`text-indigo-500 ${isActive && 'invert-white'}`}
+              className={`${twIconColor} ${isActive && 'invert-white'}`}
             />
             <p className='tiny-medium text-light-2'>{link.label}</p>
           </Link>
