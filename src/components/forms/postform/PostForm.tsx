@@ -18,6 +18,8 @@ import { PostValidation } from "@/lib/validation"
 import { Models } from "appwrite"
 import { useUserContext } from "@/context/AuthContext"
 import { useToast } from "@/components/ui/use-toast"
+import { useCreatePost } from '@/lib/react-query/queriesAndMutations'
+import LoaderBtnDisplay from '@/components/shared/LoaderBtnDisplay'
 
 type PostFormProps = {
   post?: Models.Document;
@@ -124,7 +126,12 @@ const PostForm = ({ post }: PostFormProps) => {
         />
         <div className="flex gap-4 items-center justify-end">
           <Button type="button" className="shad-button_dark_4">Cancel</Button>
-          <Button type="submit" className="shad-button_primary whitespace-nowrap">Submit</Button>
+          <Button type="submit" className="shad-button_primary whitespace-nowrap">
+            <LoaderBtnDisplay 
+              loaderCondition={isLoadingCreate}
+              notLoadingText={'Submit'}
+            />
+          </Button>
         </div>
       </form>
     </Form>

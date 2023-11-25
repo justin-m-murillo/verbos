@@ -1,6 +1,4 @@
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom'
-import { MdLogout } from 'react-icons/md'
-import { Button } from '@/components/ui/button'
 import { useSignOutAccount } from '@/lib/react-query/queriesAndMutations'
 import { useEffect } from 'react'
 import { useUserContext } from '@/context/AuthContext'
@@ -67,17 +65,9 @@ const LeftSideBar = () => {
           })}
         </ul>
       </div>
-      <LogoutButton size={24}>
+      <LogoutButton size={24} signOut={signOut}>
         <p className='small-medium lg:base-medium'>Logout</p>
       </LogoutButton>
-      {/* <Button 
-        variant='ghost' 
-        className='shad-button_ghost'
-        onClick={() => signOut()}
-      >
-        <MdLogout size={24} className='text-indigo-500' />
-        
-      </Button> */}
     </nav>
   )
 }

@@ -14,13 +14,13 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { SigninValidation } from '@/lib/validation';
-import Loader from '@/components/shared/Loader';
 import { useSignInAccount } from '@/lib/react-query/queriesAndMutations';
 import { useUserContext } from '@/context/AuthContext';
+import LoaderBtnDisplay from '@/components/shared/LoaderBtnDisplay';
 
 const SigninForm = () => {
   const { toast } = useToast();
-  const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
+  const { checkAuthUser } = useUserContext();
   const navigate = useNavigate();
 
   const { mutateAsync: signInAccount, isPending: isSigningIn } = useSignInAccount();
@@ -91,11 +91,11 @@ const SigninForm = () => {
             )}
           />
           <Button type="submit" className='shad-button_primary mt-2'>
-            {isSigningIn ? (
-              <div className='flex-center gap-2'>
-                <Loader /> Loading...
-              </div>
-            ): 'Sign in'}
+            <LoaderBtnDisplay 
+              loaderCondition={isSigningIn}
+              loadingText='Loading...'
+              notLoadingText='Sign in'
+            />
           </Button>
           <p className='text-small-regular text-light-2 text-center mt-2'>
             Forgot email or password?

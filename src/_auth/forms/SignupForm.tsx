@@ -14,17 +14,17 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { SignupValidation } from '@/lib/validation';
-import Loader from '@/components/shared/Loader';
 import { useCreateUserAccount, useSignInAccount } from '@/lib/react-query/queriesAndMutations';
 import { useUserContext } from '@/context/AuthContext';
+import LoaderBtnDisplay from '@/components/shared/LoaderBtnDisplay';
 
 const SignupForm = () => {
   const { toast } = useToast();
-  const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
+  const { checkAuthUser } = useUserContext();
   const navigate = useNavigate();
 
   const { mutateAsync: createUserAccount, isPending: isCreatingAccount } = useCreateUserAccount();
-  const { mutateAsync: signInAccount, isPending: isSigningIn } = useSignInAccount();
+  const { mutateAsync: signInAccount } = useSignInAccount();
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignupValidation>>({
@@ -127,11 +127,11 @@ const SignupForm = () => {
             )}
           />
           <Button type="submit" className='shad-button_primary mt-2'>
-            {isCreatingAccount ? (
-              <div className='flex-center gap-2'>
-                <Loader /> Loading...
-              </div>
-            ): 'Sign up'}
+            <LoaderBtnDisplay 
+              loaderCondition={isCreatingAccount}
+              loadingText='Loading...'
+              notLoadingText='Sign up'
+            />
           </Button>
           <p className='text-small-regular text-light-2 text-center mt-2'>
             Already have an account?

@@ -1,23 +1,14 @@
 import { Button } from '@/components/ui/button'
-import { useSignOutAccount } from '@/lib/react-query/queriesAndMutations';
-import { useEffect } from 'react'
+import { UseMutateFunction } from '@tanstack/react-query';
 import { MdLogout } from 'react-icons/md'
-import { useNavigate } from 'react-router-dom';
 
 type LogoutButtonProps = {
   size: number;
   children?: React.ReactNode;
+  signOut: UseMutateFunction<{} | undefined, Error, void, unknown>
 }
 
-const LogoutButton = ({ size, children }: LogoutButtonProps) => {
-  const { mutate: signOut, isSuccess } = useSignOutAccount();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (isSuccess) navigate(0);
-  
-  }, [isSuccess]);
-
+const LogoutButton = ({ size, children, signOut }: LogoutButtonProps) => {
   return (
     <Button 
       variant='ghost' 

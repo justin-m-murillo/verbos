@@ -1,6 +1,4 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { MdLogout } from 'react-icons/md'
-import { Button } from '@/components/ui/button'
 import { useSignOutAccount } from '@/lib/react-query/queriesAndMutations'
 import { useEffect } from 'react'
 import { useUserContext } from '@/context/AuthContext'
@@ -29,7 +27,7 @@ const TopBar = () => {
         </Link>
 
         <div className='flex gap-4'>
-          <LogoutButton size={32} />
+          <LogoutButton size={32} signOut={signOut} />
           <Link to={`/profile/${user.id}`} className='flex-center gap-3'>
             <img 
               src={user.imageUrl || '/assets/icons/profile-placeholder.svg'}
