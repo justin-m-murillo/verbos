@@ -3,6 +3,7 @@ import {
   useMutation,
   useQueryClient,
   useInfiniteQuery,
+  InfiniteData,
 } from '@tanstack/react-query';
 import { 
   createPost, 
@@ -170,13 +171,14 @@ export const useGetPosts = () => {
   return useInfiniteQuery({
     queryKey: [QUERY_KEYS.GET_INFINITE_POSTS],
     queryFn: getInfinitePosts,
-    getNextPageParam: (lastPage) => {
+    getNextPageParam: (lastPage: any) => {
+      if (!lastPage) return null;
       if (lastPage && lastPage.documents.length === 0) return null;
 
       const lastId = lastPage.documents[lastPage?.documents.length - 1].$id;
-
       return lastId;
-    }
+    },
+    initialPageParam: undefined,
   })
 }
 
