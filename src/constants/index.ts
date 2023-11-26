@@ -15,7 +15,9 @@ import {
   TbTrash,
   TbMapPin,
   TbSearch,
-  TbFilterSearch,
+  TbAdjustments,
+  TbAlertTriangle,
+  TbEraser,
 } from 'react-icons/tb';
 
 export const twIconColor           = 'text-indigo-500';
@@ -41,7 +43,9 @@ export const IconHeartPlus    = TbHeartPlus;
 export const IconHeartLiked   = TbHeartFilled;
 export const IconMapPin       = TbMapPin;
 export const IconSearch       = TbSearch;
-export const IconSearchFilter = TbFilterSearch;
+export const IconSearchFilter = TbAdjustments;
+export const IconWarning      = TbAlertTriangle;
+export const IconErase        = TbEraser;
 
 export const getSidebarLinks = () => [
   {
