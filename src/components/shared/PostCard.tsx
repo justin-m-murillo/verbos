@@ -1,4 +1,4 @@
-import { IconEdit, twIconColor } from "@/constants";
+import { IconEdit, IconMapPin, twIconColor } from "@/constants";
 import { useUserContext } from "@/context/AuthContext";
 import { formatDateString, multiFormatDateString } from "@/lib/utils";
 import { Models } from "appwrite"
@@ -13,15 +13,6 @@ type PostCardProps = {
 const PostCard = ({ post }: PostCardProps) => {
   const { user } = useUserContext();
   if (!post.creator) return;
-
-  const createdTime = post.$createdAt;
-  const updatedTime = post.$updatedAt;
-
-  const createdTimeStr = formatDateString(createdTime);
-  const createdTimeMultiStr = multiFormatDateString(createdTime);
-  const updatedTimeStr = updatedTime && updatedTime !== createdTime 
-    ? multiFormatDateString(updatedTime)
-    : null; 
 
   return (
     <div className="post-card">
@@ -39,17 +30,23 @@ const PostCard = ({ post }: PostCardProps) => {
             <p className="base-medium lg:body-bold text-light-1">
               {post.creator.name}
             </p>
-            <div className="flex-center gap-2 text-light-3">
+            <div className="sm:flex-center gap-2 text-light-3">
               <p className="subtle-semibold lg:small-regular">
-                {createdTimeStr.slice(0, 12)} {updatedTimeStr 
-                  ? `(Updated ${updatedTimeStr})` 
-                  : null}
+                {formatDateString(post.$createdAt).slice(0, 12)}
               </p>
-              -
-              <p className="subtle-semibold lg:small-regular">
-                {post.location}
-              </p>
+              <div className="flex flex-row items-center">
+                <IconMapPin size={14} />
+                <p className="subtle-semibold lg:small-regular">
+                  {post.location}
+                </p>
+              </div>
             </div>
+            {post.$updatedAt && post.$updatedAt !== post.$createdAt 
+              ? <p className="pt-2 sm:pt-0 subtle-semibold lg:small-regular text-light-3">
+                  Updated {multiFormatDateString(post.$updatedAt)} 
+                </p>
+              : null
+            }
           </div>
         </div>
 

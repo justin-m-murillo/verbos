@@ -1,4 +1,4 @@
-import { IconHeartLiked, IconHeartPlus, twIconColor } from '@/constants';
+import { IconHeartLiked, IconHeartPlus, twIconColor, twIconLikedColor } from '@/constants';
 import { checkIsLiked } from '@/lib/utils';
 import React from 'react'
 
@@ -15,7 +15,7 @@ const HeartBtn = ({ likes, userId, onClick }: HeartBtnProps) => {
   return (
     <Heart 
       size={20} 
-      className={`${twIconColor} cursor-pointer`} 
+      className={`${liked ? twIconLikedColor : twIconColor} cursor-pointer`} 
       onClick={onClick}
     />
   )

@@ -1,7 +1,7 @@
 import {useCallback, useState} from 'react'
 import { FileWithPath, useDropzone} from 'react-dropzone'
 import { Button } from '../ui/button';
-import { IconPost, twImgPlaceholder } from '@/constants';
+import { IconPost, twImgPlaceholderColor } from '@/constants';
 
 type FileUploaderProps = {
   fieldChange: (FILES: File[]) => void;
@@ -43,7 +43,7 @@ const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
           </>
         ) : (
           <div className='file_uploader-box'>
-            <IconPost size={96} className={twImgPlaceholder} />
+            <IconPost size={96} className={twImgPlaceholderColor} />
             <h3 className='base-medium text-light-2 mb-2 mt-6'>Drag photo here</h3>
             <h3 className='text-light-4 small-regular mb-6'>SVG, PNG, JPG</h3>
 
