@@ -1,8 +1,6 @@
-import { Models } from 'appwrite';
-import React from 'react'
 import Loader from './Loader';
 import GridPostList from './GridPostList';
-import { IconWarning } from '@/constants';
+import { ErrorDisplaySmall } from './ErrorDisplay';
 
 export type SearchResultsProps = {
   isSearchFetching: boolean;
@@ -14,11 +12,9 @@ const SearchResults = ({ isSearchFetching, searchedPosts }: SearchResultsProps) 
     return <Loader />
   else if (searchedPosts && searchedPosts.documents.length > 0) {
     return <GridPostList posts={searchedPosts.documents} />
-  } else { 
+  } else {
     return (
-      <div className='flex-center items-center text-light-4 mt-10 w-full'>
-        <IconWarning size={24} className={`mr-1`} /> No results found
-      </div>
+      <ErrorDisplaySmall message='No results found.' />
     );
   }
 }

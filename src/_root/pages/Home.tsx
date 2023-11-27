@@ -1,3 +1,4 @@
+import { ErrorDisplayLarge } from "@/components/shared/ErrorDisplay";
 import Loader from "@/components/shared/Loader";
 import PostCard from "@/components/shared/PostCard";
 import { useGetRecentPosts } from "@/lib/react-query/queriesAndMutations";
@@ -9,6 +10,8 @@ const Home = () => {
     isPending: isPostLoading,
     isError: isErrorPosts 
   } = useGetRecentPosts();
+
+  if (isErrorPosts) return <ErrorDisplayLarge />
 
   return (
     <div className="flex flex-1">

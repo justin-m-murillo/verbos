@@ -1,3 +1,4 @@
+import { ErrorDisplayLarge } from '@/components/shared/ErrorDisplay';
 import GridPostList from '@/components/shared/GridPostList';
 import Loader from '@/components/shared/Loader';
 import SearchResults from '@/components/shared/SearchResults';
@@ -10,7 +11,7 @@ import { useInView } from 'react-intersection-observer';
 
 const Explore = () => {
   const { ref, inView } = useInView();
-  const { data: posts, fetchNextPage, hasNextPage } = useGetPosts();
+  const { data: posts, fetchNextPage, hasNextPage, isError: isErrorExplore } = useGetPosts();
 
   const [searchValue, setSearchValue] = useState('');
   const debouncedValue = useDebounce(searchValue, 500);
@@ -21,6 +22,8 @@ const Explore = () => {
 
   }, [inView, searchValue])
 
+  if (isErrorExplore) return <ErrorDisplayLarge />
+  
   if (!posts) {
     return (
       <div className='flex-center w-full h-full'>

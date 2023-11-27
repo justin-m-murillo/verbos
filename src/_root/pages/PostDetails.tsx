@@ -1,6 +1,5 @@
 import Loader from '@/components/shared/Loader';
 import PostStats from '@/components/shared/PostStats';
-import { Button } from '@/components/ui/button';
 import { IconEdit, IconMapPin, IconPostDelete, twIconColor, twTrashColor, twTrashColorHover } from '@/constants';
 import { useUserContext } from '@/context/AuthContext';
 import { useGetPostById } from '@/lib/react-query/queriesAndMutations'

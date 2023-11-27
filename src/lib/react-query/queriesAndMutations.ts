@@ -3,7 +3,7 @@ import {
   useMutation,
   useQueryClient,
   useInfiniteQuery,
-  InfiniteData,
+  //InfiniteData,
 } from '@tanstack/react-query';
 import { 
   createPost, 
